@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Eventos</title>
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #2c2020;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: #122755;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            padding: 10px;
+            background-color: #1d6f88;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+        }
+        .banner {
+            width: 100%;
+            max-height: 700px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 0px;
+            background-size: cover;
+            height: 600px
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .event {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .comment {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            position: relative;
+        }
+        .comment p {
+            margin: 0;
+            display: inline-block;
+        }
+        .like {
+            color: #1133f1;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #1826f3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .reply-box {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        footer {
+            text-align: center; /* Centraliza o texto horizontalmente */
+            padding: 10px;
+            background-color: #06485c;
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ADEL CHARLISON</h1>
+        </header>
+
+        <div class="banner">
+            <img src=https://i.imgur.com/Mbjk2EJ.jpg"" alt="Banner do Evento">
+        </div>
+        
+        <div class="event" id="evento1">
+            <h2>ATENÇÃO GALERA CHARLES MIRADEL ESTA DE VOLTA!</h2>
+            <p>É nesse sábado dia 13 de julhor de 2024 um grande bingo vai acontecer com muito som ao vivo
+                e Charles miradel nas teclas e Hellem Campos no vocal.</p>
+            <div class="actions">
+                <span class="like" onclick="likeEvent(this, 'likes-evento1')">Curtir</span>
+                <span class="btn" onclick="shareEvent('Evento 1')">Compartilhar</span>
+            </div>
+            <div class="comments">
+                <div class="comment">
+                    <p>local Alvorada na padaria da FRam. <span class="like" onclick="likeComment(this, 'likes-comment1')">Curtir</span> <span class="btn" onclick="toggleReplyBox(this)">Responder</span></p>
+                    <div class="reply-box">
+                        <textarea rows="2" placeholder="Responda ao comentário"></textarea>
+                        <button class="btn" onclick="postReply(this)">Postar</button>
+                    </div>
+                </div>
+                <div class="comment">
+                    <p>Fone (92) 994507589. <span class="like" onclick="likeComment(this, 'likes-comment2')">Curtir</span> <span class="btn" onclick="toggleReplyBox(this)">Responder</span></p>
+                    <div class="reply-box">
+                        <textarea rows="2" placeholder="Responda ao comentário"></textarea>
+                        <button class="btn" onclick="postReply(this)">Postar</button>
+                    </div>
+                </div>
+                <div class="new-comment">
+                    <textarea rows="2" placeholder="Adicionar comentário"></textarea>
+                    <button class="btn" onclick="addComment('evento1')">Comentar</button>
+                </div>
+            </div>
+            
+
+        </div>
+        
+
+
+    
+    </div>   
+    <footer>
+        <p>&copy; 2024 ADEL CHARLISON. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // JavaScript interno aqui
+        function likeEvent(element, likesId) {
+            var likesSpan = document.getElementById(likesId);
+            var currentLikes = parseInt(likesSpan.textContent);
+            if (isNaN(currentLikes)) currentLikes = 0;
+            
+            if (element.textContent.trim() === 'Curtir') {
+                currentLikes++;
+                element.textContent = 'Curtido!';
+                element.style.color = '#999';
+            } else {
+                currentLikes--;
+                element.textContent = 'Curtir';
+                element.style.color = '#4CAF50';
+            }
+            
+            likesSpan.textContent = currentLikes;
+        }
+
+        function shareEvent(eventName) {
+            alert('Evento "' + eventName + '" compartilhado!');
+        }
+
+        function addComment(eventId) {
+            var textarea = document.getElementById(eventId).querySelector('.new-comment textarea');
+            var commentText = textarea.value.trim();
+            if (commentText !== '') {
+                var commentDiv = document.createElement('div');
+                commentDiv.className = 'comment';
+                commentDiv.innerHTML = '<p>' + commentText + ' <span class="like" onclick="likeComment(this, \'' + eventId + '-comment\')">Curtir</span> <span class="btn" onclick="toggleReplyBox(this)">Responder</span></p>' +
+                    '<div class="reply-box">' +
+                    '<textarea rows="2" placeholder="Responda ao comentário"></textarea>' +
+                    '<button class="btn" onclick="postReply(this)">Postar</button>' +
+                    '</div>';
+                var commentsSection = textarea.parentNode.previousElementSibling;
+                commentsSection.appendChild(commentDiv);
+                textarea.value = '';
+            }
+        }
+
+        function likeComment(element, likesId) {
+            var likesSpan = document.getElementById(likesId);
+            var currentLikes = parseInt(likesSpan.textContent);
+            if (isNaN(currentLikes)) currentLikes = 0;
+            
+            if (element.textContent.trim() === 'Curtir') {
+                currentLikes++;
+                element.textContent = 'Curtido!';
+                element.style.color = '#999';
+            } else {
+                currentLikes--;
+                element.textContent = 'Curtir';
+                element.style.color = '#4CAF50';
+            }
+            
+            likesSpan.textContent = currentLikes;
+        }
+
+        function toggleReplyBox(button) {
+            var replyBox = button.parentNode.nextElementSibling;
+            replyBox.style.display = (replyBox.style.display === 'none' || replyBox.style.display === '') ? 'block' : 'none';
+        }
+
+        function postReply(button) {
+            var textarea = button.previousElementSibling;
+            var replyText = textarea.value.trim();
+            if (replyText !== '') {
+                var replyDiv = document.createElement('div');
+                replyDiv.className = 'comment';
+                replyDiv.innerHTML = '<p><em>Resposta:</em> ' + replyText + ' <span class="like" onclick="likeComment(this, \'' + textarea.parentNode.parentNode.previousElementSibling.id + '-reply\')">Curtir</span> <span class="btn" onclick="toggleReplyBox(this)">Responder</span></p>';
+                var commentSection = textarea.parentNode.previousElementSibling;
+                commentSection.appendChild(replyDiv);
+                textarea.value = '';
+                button.parentNode.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
